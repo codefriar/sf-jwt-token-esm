@@ -1,23 +1,31 @@
 {
-  "name": "sf-jwt-token-jsm",
-  "version": "1.0.0",
-  "description": "ESM module for doing Salesforce JWT Token Authentication (server 2 server auth flow)",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/codefriar/sf-jwt-token-esm.git"
-  },
-  "keywords": [
-    "JWT",
-    "Salesforce"
-  ],
-  "author": "Kevin Poorman",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/codefriar/sf-jwt-token-esm/issues"
-  },
-  "homepage": "https://github.com/codefriar/sf-jwt-token-esm#readme"
+    "name": "sf-jwt-token-jsm",
+    "version": "1.0.0",
+    "description": "ESM module for doing Salesforce JWT Token Authentication (server 2 server auth flow)",
+    "type": "module",
+    "main": "index.js",
+    "scripts": {
+        "prettier": "prettier --write \"**/*.{js,yaml,yml}\""
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/codefriar/sf-jwt-token-esm.git"
+    },
+    "keywords": [
+        "JWT",
+        "Salesforce"
+    ],
+    "author": "Kevin Poorman",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/codefriar/sf-jwt-token-esm/issues"
+    },
+    "homepage": "https://github.com/codefriar/sf-jwt-token-esm#readme",
+    "dependencies": {
+        "rfc4648": "^1.5.1"
+    },
+    "devDependencies": {
+        "eslint": "^8.9.0",
+        "prettier": "^2.5.1"
+    }
 }
