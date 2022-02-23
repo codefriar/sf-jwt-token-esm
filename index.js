@@ -23,7 +23,7 @@ export default class SalesforceJWT {
     #privateKey;
 
     constructor(options) {
-        this.validateOptions(options);
+        this.#validateOptions(options);
         this.iss = options.iss;
         this.sub = options.sub;
         this.aud = options.aud;
@@ -31,7 +31,7 @@ export default class SalesforceJWT {
     }
 
     get #token() {
-        const existingString = this.generatePayload();
+        const existingString = this.#generatePayload();
         const sign = crypto.createSign('RSA-SHA256');
 
         sign.update(existingString);
