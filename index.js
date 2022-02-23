@@ -1,4 +1,4 @@
-import { base64url } from 'base64url';
+import base64url from 'base64url';
 import fetch from 'node-fetch';
 import * as crypto from 'crypto';
 /**
@@ -89,7 +89,7 @@ export default class SalesforceJWT {
         });
 
         if (response.ok) {
-            return response.body;
+            return await response.json();
         } else {
             throw new JwtError(body);
         }
