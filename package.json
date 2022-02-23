@@ -22,8 +22,8 @@
     },
     "homepage": "https://github.com/codefriar/sf-jwt-token-esm#readme",
     "dependencies": {
-        "node-fetch": "^3.2.0",
-        "rfc4648": "^1.5.1"
+        "base64url": "^3.0.1",
+        "node-fetch": "^3.2.0"
     },
     "devDependencies": {
         "eslint": "^8.9.0",

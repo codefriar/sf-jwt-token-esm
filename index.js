@@ -1,4 +1,4 @@
-import { base64url } from 'rfc4648';
+import { base64url } from 'base64url';
 import fetch from 'node-fetch';
 import * as crypto from 'crypto';
 /**
@@ -41,9 +41,7 @@ export default class SalesforceJWT {
         sign.end();
 
         return (
-            existingString +
-            '.' +
-            base64url.stringify(sign.sign(this.#privateKey))
+            existingString + '.' + base64url.encode(sign.sign(this.#privateKey))
         );
     }
 
@@ -59,10 +57,8 @@ export default class SalesforceJWT {
             aud: this.#aud,
             exp: Math.floor(Date.now() / 1000) + 60 * 5
         };
-        const encodedJWTHeader = base64url.stringify(JSON.stringify(header));
-        const encodedJWTClaimsSet = base64url.stringify(
-            JSON.stringify(claimsSet)
-        );
+        const encodedJWTHeader = base64url.encode(JSON.stringify(header));
+        const encodedJWTClaimsSet = base64url.encode(JSON.stringify(claimsSet));
         const existingString = encodedJWTHeader + '.' + encodedJWTClaimsSet;
 
         return existingString;
