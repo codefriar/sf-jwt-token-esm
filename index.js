@@ -22,6 +22,8 @@ export default class SalesforceJWT {
     #aud;
     #privateKey;
 
+    #GRANT_TYPE = 'urn:ietf:params:oauth:grant-type:jwt-bearer';
+
     constructor(options) {
         this.#validateOptions(options);
         this.#iss = options.iss;
@@ -77,8 +79,8 @@ export default class SalesforceJWT {
     }
 
     async getToken() {
-        formData = new URLSearchParams();
-        formData.append('grant_type', GRAND_TYPE);
+        const formData = new URLSearchParams();
+        formData.append('grant_type', this.#GRANT_TYPE);
         formData.append('assertion', this.#token);
         const response = await fetch(this.#postUrl, {
             method: 'post',
