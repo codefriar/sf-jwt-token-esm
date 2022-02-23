@@ -1,5 +1,6 @@
 import { base64url } from 'rfc4648';
 import fetch from 'node-fetch';
+import * as crypto from 'crypto';
 /**
  * Custom Error extension.
  */
