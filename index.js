@@ -1,5 +1,5 @@
-import {base64url} from "rfc4648"
-
+import { base64url } from 'rfc4648';
+import { fetch } from 'node-fetch';
 /**
  * Custom Error extension.
  */
@@ -8,7 +8,7 @@ class JwtError extends Error {
     #statusCode;
     constructor(statusCode, body) {
         super(
-            `Salesforce JWT Token flow encounted an error with status code ${statusCode.toString()}`
+            `Salesforce JWT Token flow encountered an error with status code ${statusCode.toString()}`
         );
         Object.setPrototypeOf(this, JwtError.prototype);
         this.statusCode = statusCode;
@@ -24,10 +24,10 @@ export default class SalesforceJWT {
 
     constructor(options) {
         this.#validateOptions(options);
-        this.iss = options.iss;
-        this.sub = options.sub;
-        this.aud = options.aud;
-        this.privateKey = options.privateKey;
+        this.#iss = options.iss;
+        this.#sub = options.sub;
+        this.#aud = options.aud;
+        this.#privateKey = options.privateKey;
     }
 
     get #token() {
@@ -38,20 +38,20 @@ export default class SalesforceJWT {
         sign.end();
 
         return (
-            existingString + '.' + base64url.encode(sign.sign(this.privateKey))
+            existingString + '.' + base64url.encode(sign.sign(this.#privateKey))
         );
     }
 
-    get postUrl() {
-        return this.aud + '/services/oauth2/token';
+    get #postUrl() {
+        return this.#aud + '/services/oauth2/token';
     }
 
     #generatePayload() {
         const header = { alg: 'RS256' };
         const claimsSet = {
-            iss: this.iss,
-            sub: this.sub,
-            aud: this.aud,
+            iss: this.#iss,
+            sub: this.#sub,
+            aud: this.#aud,
             exp: Math.floor(Date.now() / 1000) + 60 * 5
         };
         const encodedJWTHeader = base64url.encode(JSON.stringify(header));
@@ -77,18 +77,18 @@ export default class SalesforceJWT {
     }
 
     async getToken() {
-        const { statusCode, body } = await RequestIt.post({
-            url: this.postUrl,
-            form: {
-                grant_type: GRANT_TYPE,
-                assertion: this.token
-            }
+        formData = new URLSearchParams();
+        formData.append('grant_type', GRAND_TYPE);
+        formData.append('assertion', this.#token);
+        const response = await fetch(this.#postUrl, {
+            method: 'post',
+            body: formData
         });
 
-        if (statusCode === 200) {
-            return body;
+        if (response.ok) {
+            return response.body;
         } else {
-            throw new JwtError(statusCode, body);
+            throw new JwtError(body);
         }
     }
 
