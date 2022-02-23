@@ -1,6 +1,6 @@
 {
     "name": "sf-jwt-token-jsm",
-    "version": "1.4.0",
+    "version": "1.5.0",
     "description": "ESM module for doing Salesforce JWT Token Authentication (server 2 server auth flow)",
     "type": "module",
     "main": "index.js",
