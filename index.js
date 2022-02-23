@@ -1,5 +1,5 @@
 import { base64url } from 'rfc4648';
-import { fetch } from 'node-fetch';
+import fetch from 'node-fetch';
 /**
  * Custom Error extension.
  */
